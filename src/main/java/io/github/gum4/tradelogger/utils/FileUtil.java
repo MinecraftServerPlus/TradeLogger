@@ -5,6 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class FileUtil {
     /**
@@ -50,5 +52,20 @@ public class FileUtil {
             Bukkit.getLogger().severe("Failed to create a log file named '" + fileName + ".csv'.");
         }
         return null;
+    }
+
+    /**
+     * Get the line count of the file.
+     * @param file a file to count its lines
+     * @return line count or -1 (only if fails to load file)
+     */
+    public static long getLineCount(File file) {
+        try {
+            return Files.lines(file.toPath()).count();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Bukkit.getLogger().severe("Failed to load the '" + file.getName() + "'.");
+            return -1;
+        }
     }
 }
