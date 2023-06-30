@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.IOException;
 
 public class FileUtil {
     /**
@@ -25,5 +26,29 @@ public class FileUtil {
             Bukkit.getLogger().severe("Failed to create a data folder of this plugin.");
             return false;
         }
+    }
+
+    /**
+     * Create a csv file.
+     * @param plugin main class of this plugin
+     * @param fileName name of a file to create
+     * @return the file instance
+     */
+    public static File createCsvFile(JavaPlugin plugin, String fileName) {
+        File file = new File(plugin.getDataFolder(), fileName + ".csv");
+        if (file.exists()) {
+            return file;
+        }
+
+        try {
+            if (file.createNewFile()) {
+                Bukkit.getLogger().info("Successfully create a log file named '" + fileName + ".csv'.");
+                return file;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Bukkit.getLogger().severe("Failed to create a log file named '" + fileName + ".csv'.");
+        }
+        return null;
     }
 }
