@@ -3,3 +3,5 @@ version: '${version}'
 main: io.github.gum4.tradelogger.TradeLogger
 api-version: '1.20'
 authors: [9um4]
+description: Log when player trade between villager npcs.
+prefix: TradeLogger
